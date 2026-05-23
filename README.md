@@ -1,15 +1,8 @@
 # Render Lab
 
 ## Description
-Render utilities with a focus on NeRF and Gaussian Splatting.
+Utilities to train gaussian splatting models.
 
-## Install
-```bash
-conda create --name render-lab python=3.13
-conda activate render-lab
-```
+## Cloud
+Go to  [vastai.md](docs/vastai.md) to create an instance and start training.
 
-## Resources
-RealityScan
-Lichtfeld Studio
-Nerfstudio Gsplat
