@@ -1,7 +1,7 @@
 ## Setup
 1. Create pytorch instance from the templates page: [link](https://cloud.vast.ai/templates/).
-2. Connect from vscode through SSH.
-3. Check torch is installed in `main` conda env: `pip freeze`
+2. Connect from vscode using given ssh command from instance details page.
+3. Optional - deactivate auto tmux: `touch ~/.no_auto_tmux`
 4. Install colmap (details: [docs](https://colmap.github.io/install.html), [issue](https://github.com/colmap/colmap/issues/1431#issuecomment-3209387373)):
 ```bash
 sudo apt-get install \
@@ -35,7 +35,11 @@ git clone https://github.com/colmap/colmap.git
 cd colmap
 mkdir build
 cd build
-cmake .. -GNinja   -DCUDA_ENABLED=ON   -DGUI_ENABLED=OFF   -DOPENGL_ENABLED=OFF   -DCOLMAP_FIND_QUIETLY=ON
+cmake .. -GNinja \
+    -DCUDA_ENABLED=ON \
+    -DGUI_ENABLED=OFF \
+    -DOPENGL_ENABLED=OFF \
+    -DCOLMAP_FIND_QUIETLY=ON
 ninja -j$(nproc)
 sudo ninja install
 ```
