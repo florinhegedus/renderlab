@@ -54,7 +54,7 @@ sudo ninja install
 git clone 
 cd workspace/gsplat
 apt-get install libglm-dev
-conda activate main
+/opt/miniforge3/condabin/conda activate main
 pip install -e . --no-build-isolation
 cd workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
