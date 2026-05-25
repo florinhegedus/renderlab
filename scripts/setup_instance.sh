@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # install colmap dependencies
 cd /workspace
 sudo apt-get install -y \
@@ -27,19 +29,28 @@ sudo apt-get install -y \
     libsuitesparse-dev \
     libcurl4-openssl-dev \
     libssl-dev \
-    libmkl-full-dev
+    libmkl-full-dev \
+    nvidia-cuda-toolkit \
+    nvidia-cuda-toolkit-gcc
 sudo mkdir -p /usr/include/opencv4
+export PATH=/usr/local/cuda/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+export CUDACXX=/usr/local/cuda/bin/nvcc
 
 # install colmap
 git clone https://github.com/colmap/colmap.git
 cd colmap
 mkdir build
 cd build
+sudo apt-get install -y \
+    nvidia-cuda-toolkit \
+    nvidia-cuda-toolkit-gcc
 cmake .. -GNinja \
     -DCUDA_ENABLED=ON \
     -DGUI_ENABLED=OFF \
     -DOPENGL_ENABLED=OFF \
-    -DCOLMAP_FIND_QUIETLY=ON
+    -DCOLMAP_FIND_QUIETLY=ON \
+    -DCMAKE_CUDA_ARCHITECTURES=native
 ninja -j$(nproc)
 sudo ninja install
 
