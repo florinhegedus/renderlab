@@ -52,9 +52,10 @@ sudo ninja install
 5. Install gsplat:
 ```bash
 git clone 
-cd gsplat
+cd workspace/gsplat
 apt-get install libglm-dev
+conda activate main
 pip install -e . --no-build-isolation
-cd examples
+cd workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
 ```
