@@ -13,5 +13,9 @@ CUDA_VISIBLE_DEVICES=0 python simple_trainer.py default \
 ```
 3. Camera pose estimation with COLMAP:
 ```bash
+cd /workspace
+wget https://github.com/colmap/colmap/releases/download/3.11.1/vocab_tree_flickr100K_words32K.bin
+```
+```bash
 bash scripts/local_colmap_and_resize.sh /workspace/gsplat/examples/data/zipnerf/nyc_test
 ```

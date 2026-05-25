@@ -63,3 +63,7 @@ conda activate main
 pip install -e . --no-build-isolation
 cd /workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
+
+# download vocabtree
+cd /workspace
+wget https://github.com/colmap/colmap/releases/download/3.11.1/vocab_tree_flickr100K_words32K.bin
