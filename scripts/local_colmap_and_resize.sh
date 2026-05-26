@@ -46,10 +46,8 @@ colmap feature_extractor \
 ## Use if your scene has > 500 images
 ## Replace this path with your own local copy of the file.
 ## Download from: https://demuc.de/colmap/#download
-VOCABTREE_PATH=/workspace/vocab_tree_flickr100K_words32K.bin
 colmap vocab_tree_matcher \
     --database_path "$DATASET_PATH"/database.db \
-    --VocabTreeMatching.vocab_tree_path $VOCABTREE_PATH \
     --FeatureMatching.use_gpu "$USE_GPU"
 
 
