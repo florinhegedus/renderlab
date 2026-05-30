@@ -51,11 +51,12 @@ sudo ninja install
 ```
 5. Install gsplat:
 ```bash
-git clone 
+git clone https://github.com/nerfstudio-project/gsplat.git
 cd workspace/gsplat
 apt-get install libglm-dev
 /opt/miniforge3/condabin/conda init
-/opt/miniforge3/condabin/conda activate main
+/opt/miniforge3/condabin/conda create --name gsplat_env python=3.11 -y
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu132
 pip install -e . --no-build-isolation
 cd workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
