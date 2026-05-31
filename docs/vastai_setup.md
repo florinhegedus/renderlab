@@ -63,7 +63,7 @@ cmake .. -GNinja \
 ninja -j$(nproc)
 sudo ninja install
 ```
-7. Install gsplat:
+7. Install gsplat (check [issue](https://github.com/nerfstudio-project/gsplat/issues/965)):
 ```bash
 git clone https://github.com/nerfstudio-project/gsplat.git
 cd workspace/gsplat
@@ -84,7 +84,14 @@ pyton dataset/download_dataset.py
 cd /workspace/gsplat
 CUDA_VISIBLE_DEVICES=0 python simple_trainer.py default \
     --data_dir data/zipnerf/nyc --data_factor 4 \
-    --result_dir ./results/nyc
+    --result_dir ./results/nyc --save_ply
+CUDA_VISIBLE_DEVICES=0 python -m simple_viewer \
+        --ckpt results/nyc/ckpts/ckpt_29999_rank0.pt \
+        --output_dir results/nyc/ \
+        --port 8082
+CUDA_VISIBLE_DEVICES=0 python -m simple_converter \
+        --ckpt results/nyc/ckpts/ckpt_29999_rank0.pt \
+        --output_dir results/nyc
 ```
 
 
