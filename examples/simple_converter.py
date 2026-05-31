@@ -26,7 +26,7 @@ import torch.nn.functional as F
 from gsplat import export_splats
 
 
-def main(local_rank: int, ckpt_path: str, result_dir: str):
+def main(local_rank, ckpt_path: str, result_dir: str):
     torch.manual_seed(42)
     device = torch.device("cuda", local_rank)
 
@@ -77,5 +77,5 @@ if __name__ == "__main__":
         "--ckpt", type=str, default=None, help="path to the .pt file"
     )
     args = parser.parse_args()
-    local_rank = int(os.environ.get("LOCAL_RANK", 0))
+    local_rank = int(os.environ["CUDA_VISIBLE_DEVICES"])
     main(local_rank, args.ckpt, args.output_dir)
