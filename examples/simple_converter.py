@@ -32,25 +32,19 @@ def main(local_rank, ckpt_path: str, result_dir: str):
 
     means, quats, scales, opacities, sh0, shN = [], [], [], [], [], []
     ckpt = torch.load(ckpt_path, map_location=device)["splats"]
-    means.append(ckpt["means"])
-    quats.append(F.normalize(ckpt["quats"], p=2, dim=-1))
-    scales.append(torch.exp(ckpt["scales"]))
-    opacities.append(torch.sigmoid(ckpt["opacities"]))
-    sh0.append(ckpt["sh0"])
-    shN.append(ckpt["shN"])
-    means = torch.cat(means, dim=0)
-    quats = torch.cat(quats, dim=0)
-    scales = torch.cat(scales, dim=0)
-    opacities = torch.cat(opacities, dim=0)
-    sh0 = torch.cat(sh0, dim=0)
-    shN = torch.cat(shN, dim=0)
-    colors = torch.cat([sh0, shN], dim=-2)
-    sh_degree = int(math.sqrt(colors.shape[-2]) - 1)
+    means     = ckpt["means"]
+    quats     = ckpt["quats"]
+    scales    = ckpt["scales"]
+    opacities = ckpt["opacities"]
+    sh0       = ckpt["sh0"]
+    shN       = ckpt["shN"]
     print("Number of Gaussians:", len(means))
 
     ply_dir = f"{result_dir}/ply"
     os.makedirs(ply_dir, exist_ok=True)
     step = int(Path(ckpt_path).stem.split("_")[1])
+    save_path = f"{ply_dir}/point_cloud_{step}_post_train.ply"
+    print(f"Saving to {save_path}")
     export_splats(
         means=means,
         scales=scales,
@@ -59,7 +53,7 @@ def main(local_rank, ckpt_path: str, result_dir: str):
         sh0=sh0,
         shN=shN,
         format="ply",
-        save_to=f"{ply_dir}/point_cloud_{step}.ply",
+        save_to=save_path,
     )
     
 
