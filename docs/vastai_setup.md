@@ -82,7 +82,6 @@ First, copy `examples/download_dataset.py` from this repo to `gsplat/examples/da
 cd /workspace/gsplat/examples
 pyton dataset/download_dataset.py
 cd /workspace/gsplat
-python 
 CUDA_VISIBLE_DEVICES=0 python simple_trainer.py default \
     --data_dir data/zipnerf/nyc --data_factor 4 \
     --result_dir ./results/nyc
