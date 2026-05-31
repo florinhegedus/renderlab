@@ -1,14 +1,22 @@
 ## Setup
+Instructions to setup environment for gaussian splat training.
+
+> [!IMPORTANT]  
+> Steps 4 and 5 are mandatory. COLMAP installation can be skipped.
+
 1. Create pytorch instance from the templates page: [link](https://cloud.vast.ai/templates/).
 2. Connect from vscode using given ssh command from instance details page.
 3. Optional - deactivate auto tmux: `touch ~/.no_auto_tmux`
 4. Set environment variables:
 ```bash
-export PATH=/usr/local/cuda/bin:${PATH}
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+export CUDA_HOME=/usr/local/cuda
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 export CUDACXX=/usr/local/cuda/bin/nvcc
+export CUDA_HOME=/usr/local/cuda
+export CUDA_ROOT=/usr/local/cuda
 ```
-5. Install colmap (details: [docs](https://colmap.github.io/install.html), [issue](https://github.com/colmap/colmap/issues/1431#issuecomment-3209387373)):
+5. Install linux packages, COLMAP and gsplat dependencies:
 ```bash
 sudo apt-get install -y \
     git \
@@ -38,6 +46,9 @@ sudo apt-get install -y \
     libmkl-full-dev \
     nvidia-cuda-toolkit \
     nvidia-cuda-toolkit-gcc
+```
+6. Install colmap (details: [docs](https://colmap.github.io/install.html), [issue](https://github.com/colmap/colmap/issues/1431#issuecomment-3209387373)):
+```bash
 sudo mkdir -p /usr/include/opencv4
 git clone https://github.com/colmap/colmap.git
 cd colmap
@@ -52,7 +63,7 @@ cmake .. -GNinja \
 ninja -j$(nproc)
 sudo ninja install
 ```
-6. Install gsplat:
+7. Install gsplat:
 ```bash
 git clone https://github.com/nerfstudio-project/gsplat.git
 cd workspace/gsplat
@@ -65,7 +76,7 @@ cd workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
 ```
 
-7. Download example and train gaussians:
+8. Download example and train gaussians:
 First, copy `examples/download_dataset.py` from this repo to `gsplat/examples/datasets/download_dataset.py`.
 ```bash
 cd /workspace/gsplat/examples
@@ -78,7 +89,7 @@ CUDA_VISIBLE_DEVICES=0 python simple_trainer.py default \
 ```
 
 
-8. Install mapanything and export outputs in COLMAP format:
+9. Install mapanything and export outputs in COLMAP format:
 ```bash
 git clone https://github.com/facebookresearch/map-anything.git
 cd map-anything
