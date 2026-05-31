@@ -62,8 +62,26 @@ cd workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
 ```
 
-6. download vocabtree
+6. Download example and train gaussians:
+First, copy `examples/download_dataset.py` from this repo to `gsplat/examples/datasets/download_dataset.py`.
 ```bash
-cd /workspace
-wget https://github.com/colmap/colmap/releases/download/3.11.1/vocab_tree_flickr100K_words32K.bin
+cd /workspace/gsplat/examples
+pyton dataset/download_dataset.py
+cd /workspace/gsplat
+python 
+CUDA_VISIBLE_DEVICES=0 python simple_trainer.py default \
+    --data_dir data/zipnerf/nyc --data_factor 4 \
+    --result_dir ./results/nyc
 ```
+
+
+7. Install mapanything:
+```bash
+git clone https://github.com/facebookresearch/map-anything.git
+cd map-anything
+conda create -n mapanything python=3.12 -y
+conda activate mapanything
+# install torch, torchvision & torchaudio specific to your system
+pip install -e .
+```
+Check [mapanything-gsplat-support](https://github.com/facebookresearch/map-anything#colmap--gsplat-support)
