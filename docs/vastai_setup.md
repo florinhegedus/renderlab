@@ -2,7 +2,13 @@
 1. Create pytorch instance from the templates page: [link](https://cloud.vast.ai/templates/).
 2. Connect from vscode using given ssh command from instance details page.
 3. Optional - deactivate auto tmux: `touch ~/.no_auto_tmux`
-4. Install colmap (details: [docs](https://colmap.github.io/install.html), [issue](https://github.com/colmap/colmap/issues/1431#issuecomment-3209387373)):
+4. Set environment variables:
+```bash
+export PATH=/usr/local/cuda/bin:${PATH}
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+export CUDACXX=/usr/local/cuda/bin/nvcc
+```
+5. Install colmap (details: [docs](https://colmap.github.io/install.html), [issue](https://github.com/colmap/colmap/issues/1431#issuecomment-3209387373)):
 ```bash
 sudo apt-get install -y \
     git \
@@ -33,9 +39,6 @@ sudo apt-get install -y \
     nvidia-cuda-toolkit \
     nvidia-cuda-toolkit-gcc
 sudo mkdir -p /usr/include/opencv4
-export PATH=/usr/local/cuda/bin:${PATH}
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
-export CUDACXX=/usr/local/cuda/bin/nvcc
 git clone https://github.com/colmap/colmap.git
 cd colmap
 mkdir build
@@ -49,7 +52,7 @@ cmake .. -GNinja \
 ninja -j$(nproc)
 sudo ninja install
 ```
-5. Install gsplat:
+6. Install gsplat:
 ```bash
 git clone https://github.com/nerfstudio-project/gsplat.git
 cd workspace/gsplat
@@ -62,7 +65,7 @@ cd workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
 ```
 
-6. Download example and train gaussians:
+7. Download example and train gaussians:
 First, copy `examples/download_dataset.py` from this repo to `gsplat/examples/datasets/download_dataset.py`.
 ```bash
 cd /workspace/gsplat/examples
@@ -75,13 +78,16 @@ CUDA_VISIBLE_DEVICES=0 python simple_trainer.py default \
 ```
 
 
-7. Install mapanything:
+8. Install mapanything and export outputs in COLMAP format:
 ```bash
 git clone https://github.com/facebookresearch/map-anything.git
 cd map-anything
 conda create -n mapanything python=3.12 -y
 conda activate mapanything
-# install torch, torchvision & torchaudio specific to your system
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu132
 pip install -e .
 ```
-Check [mapanything-gsplat-support](https://github.com/facebookresearch/map-anything#colmap--gsplat-support)
+Check [mapanything-gsplat-support](https://github.com/facebookresearch/map-anything#colmap--gsplat-support):
+```bash
+python scripts/demo_colmap.py --images_dir=/workspace/repos/gsplat/examples/data/zipnerf/nyc --output_dir=/workspace/repos/gsplat/examples/data/zipnerf/nyc_COLMAP
+```
