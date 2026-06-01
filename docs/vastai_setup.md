@@ -94,7 +94,6 @@ CUDA_VISIBLE_DEVICES=0 python -m simple_converter \
         --output_dir results/nyc
 ```
 
-
 9. Install mapanything and export outputs in COLMAP format:
 ```bash
 git clone https://github.com/facebookresearch/map-anything.git
@@ -103,8 +102,9 @@ conda create -n mapanything python=3.12 -y
 conda activate mapanything
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu132
 pip install -e .
+pip install -e ".[colmap]"
 ```
 Check [mapanything-gsplat-support](https://github.com/facebookresearch/map-anything#colmap--gsplat-support):
 ```bash
-python scripts/demo_colmap.py --images_dir=/workspace/repos/gsplat/examples/data/zipnerf/nyc --output_dir=/workspace/repos/gsplat/examples/data/zipnerf/nyc_COLMAP
+python scripts/demo_colmap.py --images_dir=/workspace/gsplat/examples/data/zipnerf/nyc/images --output_dir=/workspace/gsplat/examples/data/zipnerf/nyc_COLMAP
 ```
