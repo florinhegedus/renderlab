@@ -44,10 +44,10 @@ urls = {
         # "https://storage.googleapis.com/gresearch/refraw360/zipnerf/alameda.zip",
     ],
     "zipnerf_undistorted": [
-        "https://storage.googleapis.com/gresearch/refraw360/zipnerf-undistorted/berlin.zip",
-        "https://storage.googleapis.com/gresearch/refraw360/zipnerf-undistorted/london.zip",
+        # "https://storage.googleapis.com/gresearch/refraw360/zipnerf-undistorted/berlin.zip",
+        # "https://storage.googleapis.com/gresearch/refraw360/zipnerf-undistorted/london.zip",
         "https://storage.googleapis.com/gresearch/refraw360/zipnerf-undistorted/nyc.zip",
-        "https://storage.googleapis.com/gresearch/refraw360/zipnerf-undistorted/alameda.zip",
+        # "https://storage.googleapis.com/gresearch/refraw360/zipnerf-undistorted/alameda.zip",
     ],
 }
 
@@ -63,7 +63,7 @@ dataset_rename_map = {
 
 @dataclass
 class DownloadData:
-    dataset: dataset_names = "zipnerf"
+    dataset: dataset_names = "zipnerf_undistorted"
     save_dir: Path = Path(os.getcwd() + "/data")
 
     def main(self):
