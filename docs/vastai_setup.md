@@ -43,6 +43,7 @@ sudo apt-get install -y \
     libsuitesparse-dev \
     libcurl4-openssl-dev \
     libssl-dev \
+    imagemagick \
     libmkl-full-dev \
     nvidia-cuda-toolkit \
     nvidia-cuda-toolkit-gcc
@@ -65,12 +66,15 @@ sudo ninja install
 ```
 7. Install gsplat (check [issue](https://github.com/nerfstudio-project/gsplat/issues/965)):
 ```bash
+cd /workspace
 git clone https://github.com/nerfstudio-project/gsplat.git
-cd workspace/gsplat
+cd /workspace/gsplat
 apt-get install libglm-dev
 /opt/miniforge3/condabin/conda init
-/opt/miniforge3/condabin/conda create --name gsplat_env python=3.11 -y
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu132
+# conda create --name gsplat_env python=3.11 -y
+# conda activate gsplat_env
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu132
+conda activate main  # already comes with torch
 pip install -e . --no-build-isolation
 cd workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
