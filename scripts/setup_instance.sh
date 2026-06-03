@@ -2,6 +2,24 @@
 
 set -e
 
+# env variables
+export CUDA_HOME=/usr/local/cuda
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+export CUDACXX=/usr/local/cuda/bin/nvcc
+export CUDA_HOME=/usr/local/cuda
+export CUDA_ROOT=/usr/local/cuda
+
+# conda
+CONDA_PATH="/opt/miniforge3/etc/profile.d/conda.sh"
+
+if [ -f "$CONDA_PATH" ]; then
+    source "$CONDA_PATH"
+else
+    echo "Error: conda.sh not found at $CONDA_PATH"
+    exit 1
+fi
+
 # install colmap dependencies
 cd /workspace
 sudo apt-get install -y \
@@ -30,21 +48,16 @@ sudo apt-get install -y \
     libcurl4-openssl-dev \
     libssl-dev \
     libmkl-full-dev \
+    imagemagick \
     nvidia-cuda-toolkit \
     nvidia-cuda-toolkit-gcc
 sudo mkdir -p /usr/include/opencv4
-export PATH=/usr/local/cuda/bin:${PATH}
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
-export CUDACXX=/usr/local/cuda/bin/nvcc
 
 # install colmap
 git clone https://github.com/colmap/colmap.git
 cd colmap
 mkdir build
 cd build
-sudo apt-get install -y \
-    nvidia-cuda-toolkit \
-    nvidia-cuda-toolkit-gcc
 cmake .. -GNinja \
     -DCUDA_ENABLED=ON \
     -DGUI_ENABLED=OFF \
@@ -59,8 +72,7 @@ cd /workspace
 git clone https://github.com/nerfstudio-project/gsplat.git
 cd /workspace/gsplat
 apt-get install libglm-dev
-/opt/miniforge3/condabin/conda init
-/opt/miniforge3/condabin/conda activate main
+conda activate main
 pip install -e . --no-build-isolation
 cd /workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
