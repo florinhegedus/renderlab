@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# break if a command throws error
 set -e
 
 # env variables
@@ -9,6 +10,11 @@ export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 export CUDACXX=/usr/local/cuda/bin/nvcc
 export CUDA_HOME=/usr/local/cuda
 export CUDA_ROOT=/usr/local/cuda
+
+# get cuda version
+CUDA_VERSION=$(nvidia-smi | grep -Po 'CUDA Version: \K[0-9]+\.[0-9]+')
+CUDA_TAG="cu$(echo $CUDA_VERSION | tr -d '.')"
+echo $CUDA_TAG
 
 # conda
 CONDA_PATH="/opt/miniforge3/etc/profile.d/conda.sh"
@@ -34,6 +40,7 @@ sudo apt-get install -y \
     libopenimageio-dev \
     openimageio-tools \
     libmetis-dev \
+    libglm-dev \
     libgoogle-glog-dev \
     libgtest-dev \
     libgmock-dev \
@@ -71,8 +78,9 @@ sudo ninja install
 cd /workspace
 git clone https://github.com/nerfstudio-project/gsplat.git
 cd /workspace/gsplat
-apt-get install libglm-dev
-conda activate main
+conda create --name gsplat_env python=3.11 -y
+conda activate gsplat_env
+pip install torch torchvision torchaudio --index-url "https://download.pytorch.org/whl/${CUDA_TAG}"
 pip install -e . --no-build-isolation
 cd /workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
