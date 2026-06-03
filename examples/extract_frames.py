@@ -3,8 +3,9 @@ from pathlib import Path
 
 
 if __name__ == "__main__":
-    vid = cv2.VideoCapture(rf"C:\D_partition\projects\render-lab\scenes\sufragerie-f\GX010313.MP4")
-    outdir = Path(rf"C:\D_partition\projects\render-lab\scenes\sufragerie-f\frames-10")
+    video_path = Path(rf"C:\D_partition\projects\render-lab\scenes\birou-f-2\GX010322.MP4")
+    vid = cv2.VideoCapture(video_path)
+    outdir = video_path.parent / "images"
     outdir.mkdir(exist_ok=True)
 
     step = 10
