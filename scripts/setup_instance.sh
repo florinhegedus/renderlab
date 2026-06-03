@@ -12,9 +12,33 @@ export CUDA_HOME=/usr/local/cuda
 export CUDA_ROOT=/usr/local/cuda
 
 # get cuda version
-CUDA_VERSION=$(nvidia-smi | grep -Po 'CUDA Version: \K[0-9]+\.[0-9]+')
-CUDA_TAG="cu$(echo $CUDA_VERSION | tr -d '.')"
-echo $CUDA_TAG
+CUDA_MAJOR=$(nvidia-smi | grep -Po 'CUDA Version: \K[0-9]+')
+CUDA_MINOR=$(nvidia-smi | grep -Po 'CUDA Version: [0-9]+\.\K[0-9]+')
+if [ -z "$CUDA_MAJOR" ]; then
+    echo "CUDA not found. Installing CPU/Default version."
+else
+    echo "Detected System CUDA: $CUDA_MAJOR.$CUDA_MINOR"
+    if [ "$CUDA_MAJOR" -eq 12 ]; then
+        if [ "$CUDA_MINOR" -ge 6 ]; then
+            echo "System is CUDA 12.6+. Mapping to cu126."
+            CUDA_TAG="cu126"
+        else
+            echo "System is CUDA <12.6. Exiting, manually set CUDA version."
+            exit 1
+        fi
+    elif [ "$CUDA_MAJOR" -eq 13 ]; then
+        if [ "$CUDA_MINOR" -ge 2 ]; then
+            echo "System is CUDA 13.2+. Mapping to cu132."
+            CUDA_TAG="cu132"
+        else
+            echo "System is CUDA 13.0/13.1. Mapping to cu130."
+            CUDA_TAG="cu130"
+        fi
+    else
+        echo "Unexpected CUDA generation."
+        exit 1
+    fi
+fi
 
 # conda
 CONDA_PATH="/opt/miniforge3/etc/profile.d/conda.sh"
