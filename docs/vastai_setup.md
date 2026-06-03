@@ -70,10 +70,9 @@ cd /workspace
 git clone https://github.com/nerfstudio-project/gsplat.git
 cd /workspace/gsplat
 apt-get install libglm-dev
-/opt/miniforge3/condabin/conda init
-# conda create --name gsplat_env python=3.11 -y
-# conda activate gsplat_env
-# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu132
+conda create --name gsplat_env python=3.11 -y
+conda activate gsplat_env
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu132
 conda activate main  # already comes with torch
 pip install -e . --no-build-isolation
 cd workspace/gsplat/examples
