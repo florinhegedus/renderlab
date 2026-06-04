@@ -99,6 +99,15 @@ CUDA_VISIBLE_DEVICES=0 python -m simple_converter \
         --output_dir results/nyc
 ```
 
+For 3DGUT variant:
+```bash
+CUDA_VISIBLE_DEVICES=0 python simple_trainer.py mcmc --with_ut --with_eval3d \
+    --data_dir data/sufragerie \
+    --data_factor 4 \
+    --result_dir ./results/sufragerie \
+    --save_ply
+```
+
 9. Install mapanything and export outputs in COLMAP format:
 ```bash
 git clone https://github.com/facebookresearch/map-anything.git
