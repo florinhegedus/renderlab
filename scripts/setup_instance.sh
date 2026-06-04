@@ -102,6 +102,7 @@ sudo ninja install
 cd /workspace
 git clone https://github.com/nerfstudio-project/gsplat.git
 cd /workspace/gsplat
+git checkout c6d55c73badfff1992bfd02ece36cbdea846a790
 conda create --name gsplat_env python=3.11 -y
 conda activate gsplat_env
 pip install torch torchvision torchaudio --index-url "https://download.pytorch.org/whl/${CUDA_TAG}"
