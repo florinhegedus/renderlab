@@ -27,13 +27,8 @@ else
             exit 1
         fi
     elif [ "$CUDA_MAJOR" -eq 13 ]; then
-        if [ "$CUDA_MINOR" -ge 2 ]; then
-            echo "System is CUDA 13.2+. Mapping to cu132."
-            CUDA_TAG="cu132"
-        else
-            echo "System is CUDA 13.0/13.1. Mapping to cu130."
-            CUDA_TAG="cu130"
-        fi
+        echo "System is CUDA 13.x. Mapping to cu130."
+        CUDA_TAG="cu130"
     else
         echo "Unexpected CUDA generation."
         exit 1
@@ -108,4 +103,4 @@ pip install torch==2.11.0 torchvision==0.26.0 torchaudio==2.11.0 --index-url "ht
 pip install -e . --no-build-isolation
 cd /workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
-python -m pip install -e ../libs/scene -e l../libs/stage
+python -m pip install -e ../libs/scene -e ../libs/stage
