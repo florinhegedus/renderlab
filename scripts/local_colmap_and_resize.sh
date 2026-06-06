@@ -60,7 +60,9 @@ colmap mapper \
     --database_path "$DATASET_PATH"/database.db \
     --image_path "$DATASET_PATH"/images \
     --output_path "$DATASET_PATH"/sparse \
-    --Mapper.ba_global_function_tolerance=0.000001
+    --Mapper.ba_global_function_tolerance=0.000001 \
+    --Mapper.multiple_models 0
+    
 
 
 ### Image undistortion
