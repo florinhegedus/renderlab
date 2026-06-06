@@ -86,9 +86,9 @@ cd /workspace/gsplat/examples
 pyton dataset/download_dataset.py
 cd /workspace/gsplat
 CUDA_VISIBLE_DEVICES=0 python simple_trainer.py default \
-    --data_dir data/birou \
-    --data_factor 4 \
-    --result_dir ./results/birou \
+    --data_dir data/living-pinhole \
+    --data_factor 2 \
+    --result_dir ./results/living-pinhole \
     --save_ply
 CUDA_VISIBLE_DEVICES=0 python -m simple_viewer \
         --ckpt results/nyc/ckpts/ckpt_29999_rank0.pt \
@@ -102,10 +102,11 @@ CUDA_VISIBLE_DEVICES=0 python -m simple_converter \
 For 3DGUT variant:
 ```bash
 CUDA_VISIBLE_DEVICES=0 python simple_trainer.py mcmc --with_ut --with_eval3d \
-    --data_dir data/sufragerie \
-    --data_factor 4 \
-    --result_dir ./results/sufragerie \
+    --data_dir data/living-fisheye \
+    --data_factor 2 \
+    --result_dir ./results/living-fisheye \
     --save_ply
+    --camera_model fisheye \
 ```
 
 9. Install mapanything and export outputs in COLMAP format:
