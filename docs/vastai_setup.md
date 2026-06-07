@@ -86,9 +86,9 @@ cd /workspace/gsplat/examples
 pyton dataset/download_dataset.py
 cd /workspace/gsplat
 CUDA_VISIBLE_DEVICES=0 python simple_trainer.py default \
-    --data_dir data/living-pinhole \
+    --data_dir /workspace/scenes/living \
     --data_factor 2 \
-    --result_dir ./results/living-pinhole \
+    --result_dir ./results/living \
     --save_ply
 CUDA_VISIBLE_DEVICES=0 python -m simple_viewer \
         --ckpt results/nyc/ckpts/ckpt_29999_rank0.pt \

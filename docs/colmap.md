@@ -2,19 +2,19 @@
 1. Camera pose estimation with COLMAP:
 ```bash
 sudo apt install imagemagick -y
-bash local_colmap_and_resize.sh /workspace/gsplat/examples/data/living-fisheye OPENCV_FISHEYE  # PINHOLE / OPENCV / OPENCV_FISHEYE
+bash local_colmap_and_resize.sh /workspace/scenes/living PINHOLE  # PINHOLE / OPENCV / OPENCV_FISHEYE
 ```
 2. Resize:
 ```bash
-bash resize.sh /workspace/gsplat/examples/data/sufragerie
+bash resize.sh /workspace/scenes/living
 ```
 
 3. Merge submodels:
 ```bash
 colmap model_merger \
-    --input_path1 /workspace/gsplat/examples/data/living-pinhole/sparse/0 \
-    --input_path2 /workspace/gsplat/examples/data/living-pinhole/sparse/1 \
-    --output_path /workspace/gsplat/examples/data/living-pinhole/sparse/2
+    --input_path1 /workspace/scenes/living/sparse/0 \
+    --input_path2 /workspace/scenes/living/sparse/1 \
+    --output_path /workspace/scenes/living/sparse/2
 ```
 
 4. Force only one model:
