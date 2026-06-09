@@ -22,7 +22,7 @@ else
         if [ "$CUDA_MINOR" -ge 8 ]; then
             echo "System is CUDA 12.8+. Mapping to cu128."
             CUDA_TAG="cu128"
-        if [ "$CUDA_MINOR" -ge 6 ]; then
+        elif [ "$CUDA_MINOR" -ge 6 ]; then
             echo "System is CUDA 12.6+. Mapping to cu126."
             CUDA_TAG="cu126"
         else
