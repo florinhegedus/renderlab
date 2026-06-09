@@ -21,6 +21,7 @@ else
     exit 1
 fi
 
+# install gluemap
 git clone https://github.com/colmap/gluemap.git
 cd gluemap
 git submodule update --init --recursive
