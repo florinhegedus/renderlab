@@ -25,8 +25,8 @@ fi
 git clone https://github.com/colmap/gluemap.git
 cd gluemap
 git submodule update --init --recursive
-conda create --name gluemap_env python=3.12
-conda install -n gluemap_env -c conda-forge \
+conda create --name gluemap_env python=3.12 -y
+conda install -n gluemap_env -c conda-forge -y \
     eigen=3.4.0 \
     ceres-solver=2.2.0 \
     metis=5.1.0 \
