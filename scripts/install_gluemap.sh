@@ -36,6 +36,8 @@ conda install -n gluemap_env -c conda-forge -y \
     torchvision=0.19.1 \
     cuda-version=12.4
 
+CMAKE_PREFIX_PATH=$CONDA_PREFIX pip install -e .
+
 mkdir -p checkpoints
 
 # SALAD retrieval
