@@ -7,7 +7,13 @@ Instructions to setup environment for gaussian splat training.
 1. Create pytorch instance from the templates page: [link](https://cloud.vast.ai/templates/).
 2. Connect from vscode using given ssh command from instance details page.
 3. Optional - deactivate auto tmux: `touch ~/.no_auto_tmux`
-4. Set environment variables:
+4. Optional - install miniconda if not installed:
+```bash
+curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+# -> install it in /workspace
+```
+5. Set environment variables:
 ```bash
 export CUDA_HOME=/usr/local/cuda
 export PATH=$CUDA_HOME/bin:$PATH
@@ -16,7 +22,7 @@ export CUDACXX=/usr/local/cuda/bin/nvcc
 export CUDA_HOME=/usr/local/cuda
 export CUDA_ROOT=/usr/local/cuda
 ```
-5. Install linux packages, COLMAP and gsplat dependencies:
+6. Install linux packages, COLMAP and gsplat dependencies:
 ```bash
 sudo apt-get install -y \
     git \
@@ -48,7 +54,7 @@ sudo apt-get install -y \
     nvidia-cuda-toolkit \
     nvidia-cuda-toolkit-gcc
 ```
-6. Install colmap (details: [docs](https://colmap.github.io/install.html), [issue](https://github.com/colmap/colmap/issues/1431#issuecomment-3209387373)):
+7. Install colmap (details: [docs](https://colmap.github.io/install.html), [issue](https://github.com/colmap/colmap/issues/1431#issuecomment-3209387373)):
 ```bash
 sudo mkdir -p /usr/include/opencv4
 git clone https://github.com/colmap/colmap.git
@@ -64,7 +70,7 @@ cmake .. -GNinja \
 ninja -j$(nproc)
 sudo ninja install
 ```
-7. Install gsplat (check [issue](https://github.com/nerfstudio-project/gsplat/issues/965)):
+8. Install gsplat (check [issue](https://github.com/nerfstudio-project/gsplat/issues/965)):
 ```bash
 cd /workspace
 git clone https://github.com/nerfstudio-project/gsplat.git
@@ -73,22 +79,21 @@ apt-get install libglm-dev
 conda create --name gsplat_env python=3.11 -y
 conda activate gsplat_env
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu132
-conda activate main  # already comes with torch
 pip install -e . --no-build-isolation
 cd workspace/gsplat/examples
 pip install -r requirements.txt --no-build-isolation
 ```
 
-8. Download example and train gaussians:
+9. Download example and train gaussians:
 First, copy `examples/download_dataset.py` from this repo to `gsplat/examples/datasets/download_dataset.py`.
 ```bash
 cd /workspace/gsplat/examples
 pyton dataset/download_dataset.py
 cd /workspace/gsplat
 CUDA_VISIBLE_DEVICES=0 python simple_trainer.py default \
-    --data_dir /workspace/scenes/living \
+    --data_dir /workspace/scenes/birou \
     --data_factor 2 \
-    --result_dir ./results/living \
+    --result_dir ./results/birou \
     --save_ply
 CUDA_VISIBLE_DEVICES=0 python -m simple_viewer \
         --ckpt results/nyc/ckpts/ckpt_29999_rank0.pt \
@@ -109,7 +114,7 @@ CUDA_VISIBLE_DEVICES=0 python simple_trainer.py mcmc --with_ut --with_eval3d \
     --camera_model fisheye \
 ```
 
-9. Install mapanything and export outputs in COLMAP format:
+10. Install mapanything and export outputs in COLMAP format:
 ```bash
 git clone https://github.com/facebookresearch/map-anything.git
 cd map-anything
