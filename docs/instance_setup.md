@@ -129,7 +129,7 @@ Check [mapanything-gsplat-support](https://github.com/facebookresearch/map-anyth
 python scripts/demo_colmap.py --images_dir=/workspace/gsplat/examples/data/zipnerf/nyc/images --output_dir=/workspace/gsplat/examples/data/zipnerf/nyc_COLMAP
 ```
 
-11. Gluemap commands:
+11. Gluemap commands. Keep in mind gluemap search recursively for images, keep only one image folder.
 ```bash
 gluemap-demo \
     --config configs/example.yaml \
