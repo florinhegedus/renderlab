@@ -1,7 +1,7 @@
 ## Sample Data
 1. Camera pose estimation with COLMAP:
 ```bash
-bash local_colmap_and_resize.sh /workspace/scenes/birou/wo PINHOLE  # PINHOLE / OPENCV / OPENCV_FISHEYE
+bash local_colmap_and_resize.sh /workspace/gsplat/examples/data/zipnerf_undistorted/nyc_local PINHOLE  # PINHOLE / OPENCV / OPENCV_FISHEYE
 ```
 2. Resize images:
 ```bash

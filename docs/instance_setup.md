@@ -91,9 +91,9 @@ cd /workspace/gsplat/examples
 pyton dataset/download_dataset.py
 cd /workspace/gsplat
 CUDA_VISIBLE_DEVICES=0 python simple_trainer.py default \
-    --data_dir /workspace/scenes/birou \
-    --data_factor 2 \
-    --result_dir ./results/birou \
+    --data_dir gsplat/examples/data/zipnerf_undistorted/nyc \
+    --data_factor 4 \
+    --result_dir ./results/nyc \
     --save_ply
 CUDA_VISIBLE_DEVICES=0 python -m simple_viewer \
         --ckpt results/nyc/ckpts/ckpt_29999_rank0.pt \
@@ -127,4 +127,13 @@ pip install -e ".[colmap]"
 Check [mapanything-gsplat-support](https://github.com/facebookresearch/map-anything#colmap--gsplat-support):
 ```bash
 python scripts/demo_colmap.py --images_dir=/workspace/gsplat/examples/data/zipnerf/nyc/images --output_dir=/workspace/gsplat/examples/data/zipnerf/nyc_COLMAP
+```
+
+11. Gluemap commands:
+```bash
+gluemap-demo \
+    --config configs/example.yaml \
+    --images_path /workspace/gsplat/examples/data/zipnerf_undistorted/nyc_glue \
+    --intrinsics_mode SHARED \
+    --write_path /workspace/gsplat/examples/data/zipnerf_undistorted/nyc_glue
 ```
