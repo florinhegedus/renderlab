@@ -23,7 +23,7 @@ def crop(scene_path, dest_path, start_idx, end_idx):
     start_idx = max(0, start_idx)
     end_idx   = min(len(frames), end_idx)
     print(f"Total number of frames: {len(frames)}.")
-    print(f"Number of frames after crop: {end_idx - start_idx}")
+    print(f"Number of frames after crop: {end_idx - start_idx + 1}")
 
     # delete frames
     for idx, frame in enumerate(frames):
