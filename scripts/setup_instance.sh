@@ -143,6 +143,7 @@ wget -O checkpoints/vggsfm_v2_0_0_track_predictor.bin \
 
 # Pi3 multiview model (huggingface_hub already in env)
 pip install click
+export HF_HUB_DISABLE_UPDATE_CHECK=1
 hf download yyfz233/Pi3 model.safetensors --local-dir checkpoints
 mv checkpoints/model.safetensors checkpoints/pi3.safetensors
 
