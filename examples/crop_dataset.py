@@ -41,11 +41,10 @@ def crop(scene_path, dest_path, start_idx, end_idx):
 
 if __name__ == "__main__":
     """ example:
-    
     python datasets/crop_dataset.py \
-        --scene_path /workspace/gsplat/examples/data/zipnerf_undistorted/nyc
-        --dest_path /workspace/gsplat/examples/data/zipnerf_undistorted/nyc_gluemap
-        --start_idx 0
+        --scene_path /workspace/gsplat/examples/data/zipnerf_undistorted/nyc \
+        --dest_path /workspace/gsplat/examples/data/zipnerf_undistorted/nyc_gluemap \
+        --start_idx 0 \
         --end_idx 100
     """
     parser = argparse.ArgumentParser()
