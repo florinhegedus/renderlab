@@ -4,9 +4,9 @@ Run:
 ```bash
 gluemap-demo \
     --config configs/example.yaml \
-    --images_path /workspace/gsplat/examples/data/zipnerf_undistorted/nyc_glue \
+    --images_path /workspace/gsplat/examples/data/zipnerf_undistorted/nyc_gluemap \
     --intrinsics_mode SHARED \
-    --write_path /workspace/gsplat/examples/data/zipnerf_undistorted/nyc_glue \
+    --write_path /workspace/gsplat/examples/data/zipnerf_undistorted/nyc_gluemap \
     --batch_size 4
 ```
 
