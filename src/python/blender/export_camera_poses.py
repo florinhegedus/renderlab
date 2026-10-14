@@ -1,3 +1,4 @@
+"""Export data for a scene."""
 import bpy
 import json
 import math
@@ -6,11 +7,11 @@ import math
 scene = bpy.context.scene
 camera = bpy.data.objects.get("Camera")
 
-center_obj = bpy.data.objects.get("Empty")
+target_obj = bpy.data.objects.get("Empty")
 
 if not camera:
     raise ValueError("Error: Could not find an object named 'Camera' in the scene.")
-if not center_obj:
+if not target_obj:
     raise ValueError("Error: Could not find 'CenterEmpty' or 'Turntable' to use as a center reference.")
 
 render = scene.render
@@ -39,10 +40,10 @@ for f in range(scene.frame_start, scene.frame_end + 1):
 
     # Get world matrices
     mat_cam_world = camera.matrix_world
-    mat_center_inv = center_obj.matrix_world.inverted()
+    mat_target_inv = target_obj.matrix_world.inverted()
 
     # Compute camera matrix relative to the center origin object
-    mat_relative = mat_center_inv @ mat_cam_world
+    mat_relative = mat_target_inv @ mat_cam_world
 
     # Convert Blender's 4x4 Mathutils matrix into a standard nested Python list
     transform_matrix = [
@@ -57,7 +58,7 @@ for f in range(scene.frame_start, scene.frame_end + 1):
     }
     output_data["frames"].append(frame_data)
 
-output_path = bpy.path.abspath("//transforms.json")
+output_path = bpy.path.abspath("//dataset/transforms.json")
 with open(output_path, "w") as outfile:
     json.dump(output_data, outfile, indent=4)
 
